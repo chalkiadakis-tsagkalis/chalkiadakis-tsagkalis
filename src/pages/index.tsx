@@ -7,7 +7,7 @@ import { graphql,useStaticQuery } from 'gatsby'
 const IndexPage = () => {
     const data = useStaticQuery(query);
 
-    const domain = "https://chalkiadakistsagkalismain.gtsb.io/";
+    const domain = "https://chalkiadakistsagkalismain.gtsb.io";
     console.info(domain);
     const func = async() => {
     const url = domain+data.allFile.nodes[0].publicURL;
