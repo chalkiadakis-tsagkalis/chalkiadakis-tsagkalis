@@ -7,10 +7,10 @@ import { graphql,useStaticQuery } from 'gatsby'
 const IndexPage = () => {
     const data = useStaticQuery(query);
 
-    const domain = window.location.host;
+    const domain = "https://chalkiadakistsagkalismain.gtsb.io/";
     console.info(domain);
     const func = async() => {
-    const url = "https://"+domain+"/"+data.allFile.nodes[0].publicURL;
+    const url = domain+data.allFile.nodes[0].publicURL;
     const data2 = await (await fetch(url)).arrayBuffer();
    /* data is an ArrayBuffer */
     const workbook3 = XLSX.read(data2);
