@@ -10,7 +10,7 @@ const IndexPage = () => {
     const domain = window.location.host;
     console.info(domain);
     const func = async() => {
-    const url = "https://"+domain+"/"+data.allFile.nodes[0].publicURL;
+    const url = "http://"+domain+"/"+data.allFile.nodes[0].publicURL;
     const data2 = await (await fetch(url)).arrayBuffer();
    /* data is an ArrayBuffer */
     const workbook3 = XLSX.read(data2);
