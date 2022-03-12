@@ -1,4 +1,3 @@
-import { Dir } from "fs";
 import * as React from "react"
 import * as XLSX from 'xlsx';
 import { graphql,useStaticQuery } from 'gatsby'
@@ -10,10 +9,10 @@ const IndexPage = () => {
     const domain = "https://chalkiadakistsagkalismain.gtsb.io";
     const domainDev = "http://localhost:8000";
 
-    const [places,setPlaces] =  React.useState([<option key={1}>ela</option>]);
-	  const [optionPlaces,setOptionPlaces] = React.useState([<option key={1}>ela</option>]);
+    const [places,setPlaces] =  React.useState([<option key={1}>ΠΟΛΗ</option>]);
+	  const [optionPlaces,setOptionPlaces] = React.useState([<option key={1}>ΚΟΜΟΤΗΝΗ</option>]);
     const [placesValues,setPlacesValues] = React.useState([0]);
-    const [place,setPlace] = React.useState('ΚΟΜΟΤΗΝΗ');
+    const [place,setPlace] = React.useState("ΚΟΜΟΤΗΝΗ");
     const [value,setValue] = React.useState(placesValues[0]);
     const [CRL,setCRL] = React.useState(-1);
     const [perivallon,setPerivallon] = React.useState(850);
@@ -54,11 +53,14 @@ const IndexPage = () => {
     },[searchValue])
 
     const handleOnCalculate = () => {
-      setCRL(perivallon/value);
+      const apotelesma = (perivallon/value);
+      setCRL(apotelesma);
 
       if(perivallon/value > 1000)
       {
         setMessage(notSPD);
+      } else {
+        setMessage(SPD);
       }
       setShowResults(1);
 
@@ -131,7 +133,7 @@ const IndexPage = () => {
             }} />
            </label>
          </form>
-         <select value={place} onChange={optionOnChange}>
+         <select defaultValue={"ΠΟΛΗ"} onChange={optionOnChange}>
            {optionPlaces}
          </select>
 
@@ -149,10 +151,12 @@ const IndexPage = () => {
         
        <div style={{paddingLeft:'300px'}}>
        <button onClick={handleOnCalculate}>{ypologismos}</button>
-       <div>
+       <div style={{bottom:'30px'}} >
+         
 
         {showResults ? 
-          <h1>{`CRL = ${CRL} \t ${message}`}</h1>  
+
+          <h1>{`CRL = ${CRL.toFixed(2)}  ${message}`}</h1>  
           :null
          }
 
