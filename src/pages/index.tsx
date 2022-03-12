@@ -151,17 +151,15 @@ const IndexPage = () => {
         
        <div style={{paddingLeft:'300px'}}>
        <button onClick={handleOnCalculate}>{ypologismos}</button>
-       <div style={{bottom:'30px'}} >
          
 
         {showResults ? 
 
-          <h1>{`CRL = ${CRL.toFixed(2)}  ${message}`}</h1>  
+          <h1 style={{wordSpacing:'10px'}}>{`CRL = ${CRL.toFixed(2)}       (${message})`}</h1>  
           :null
-         }
+        }
 
 
-       </div>
       </div>
 </div>
           </main>
