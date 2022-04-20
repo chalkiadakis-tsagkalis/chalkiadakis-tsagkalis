@@ -1,13 +1,9 @@
 import * as React from "react"
-import * as XLSX from 'xlsx';
-import { graphql,useStaticQuery } from 'gatsby'
-import { excelColumnName,excelValueName,astiko,yperastiko,SPD,notSPD, anazitisi, ypologismos } from "../modules/constants";
+import { astiko,yperastiko,SPD,notSPD, anazitisi, ypologismos } from "../modules/constants";
+import {citiesData,valuesData} from "../modules/data";
 // markup
 const IndexPage = () => {
-    const queryData = useStaticQuery(query);
 
-    const domain = "https://chalkiadakistsagkalismain.gtsb.io";
-    const domainDev = "http://localhost:8000";
 
     const [places,setPlaces] =  React.useState([<option key={1}>ΠΟΛΗ</option>]);
 	  const [optionPlaces,setOptionPlaces] = React.useState([<option key={1}>ΚΟΜΟΤΗΝΗ</option>]);
@@ -46,13 +42,15 @@ const IndexPage = () => {
         }
 
       } )
-      console.info(newCities);
+
       setOptionPlaces(newCities);
 
 
     },[searchValue])
 
     const handleOnCalculate = () => {
+      console.info(perivallon);
+      console.info(value);
       const apotelesma = (perivallon/value);
       setCRL(apotelesma);
 
@@ -70,52 +68,23 @@ const IndexPage = () => {
 
     const func = async() => {
     const places: JSX.Element[] = [];
-    const placesV :number[] = [];
-    const url = domain+queryData.allFile.nodes[0].publicURL;
-    const data2 = await (await fetch(url)).arrayBuffer();
-   /* data is an ArrayBuffer */
-    const workbook3 = XLSX.read(data2);
-    const sheetToJson = XLSX.utils.sheet_to_json(workbook3.Sheets[workbook3.SheetNames[0]]);
-    sheetToJson.map((row,i)=>(places.push(<option key={`item_${i}`} value={row[excelColumnName]}>{ row[excelColumnName] }</option>)))
-    console.info(sheetToJson);
-    sheetToJson.map((row,i)=>(placesV.push(row[excelValueName])))
-
-    placesV.shift();
+    const placesV :number[] = valuesData;
+  
+    citiesData.map((row,i)=>(places.push(<option key={`item_${i}`} value={citiesData[i]}>{ citiesData[i] }</option>)))
     setPlacesValues(placesV);
     setValue(placesV[0]);
 
-    places.shift();
     setOptionPlaces(places);
     setPlaces(places);
 
 
     }
 
-    const funcDev = async() => {
-    const places: JSX.Element[] = [];
-    const placesV :number[] = [];
-    const url = domainDev+queryData.allFile.nodes[0].publicURL;
-    const data2 = await (await fetch(url)).arrayBuffer();
-   /* data is an ArrayBuffer */
-    const workbook3 = XLSX.read(data2,{type:"array"});
-    const sheetToJson = XLSX.utils.sheet_to_json(workbook3.Sheets[workbook3.SheetNames[0]]);
-    sheetToJson.map((row,i)=>(places.push(<option key={`item_${i}`} value={row[excelColumnName]}>{ row[excelColumnName] }</option>)))
-    console.info(sheetToJson);
-    sheetToJson.map((row,i)=>(placesV.push(row[excelValueName])))
-
-    placesV.shift();
-    setPlacesValues(placesV);
-    setValue(placesV[0]);
-
-    places.shift();
-    setOptionPlaces(places);
-    setPlaces(places);
-
-    }
 
     React.useState( () => {
 
       func();
+
     })
 
 
@@ -144,7 +113,7 @@ const IndexPage = () => {
             setPerivallon(850);
             return;
           }
-          setPerivallon(50);        }}>
+          setPerivallon(85);        }}>
           <option value={"1"} key={1}>{astiko}</option>
           <option value={"2"} key={2}>{yperastiko}</option>
         </select>
@@ -165,16 +134,6 @@ const IndexPage = () => {
           </main>
   )
 }
-
-export const query = graphql`
-  query {
-    allFile {
-      nodes {
-        dir
-        publicURL
-      }
-    }
-  }`
 
 export default IndexPage
 
