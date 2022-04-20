@@ -20,11 +20,12 @@ const IndexPage = () => {
     const optionOnChange = (event:any) => {
       setPlace(event.target.selectedOptions[0].value);
       
+      console.info(event.target.selectedOptions[0]);
       optionPlaces.map((row,i) => {
-        if(row.props.value==event.target.selectedOptions[0].value)
+        places.forEach((row,i) => {if(event.target.selectedOptions[0].value==row.props.value)
         {
           setValue(placesValues[i]);
-        }
+        }})
 
       })
     }
@@ -64,8 +65,6 @@ const IndexPage = () => {
 
     }
 
-
-
     const func = async() => {
     const places: JSX.Element[] = [];
     const placesV :number[] = valuesData;
@@ -96,9 +95,8 @@ const IndexPage = () => {
         <div>
          <form>
            <label>{anazitisi}
-            <input type="text" value={searchValue} onChange={(e) => {
+            <input type="text" placeholder="ΟΝΟΜΑ ΠΟΛΗΣ" value={searchValue} onChange={(e) => {
               setSearchValue(e.target.value);
-              console.info(e.target.value);
             }} />
            </label>
          </form>
@@ -123,8 +121,12 @@ const IndexPage = () => {
          
 
         {showResults ? 
-
-          <h1 style={{wordSpacing:'10px'}}>{`CRL = ${CRL.toFixed(2)}       (${message})`}</h1>  
+          <div>
+          <h1 style={{wordSpacing:'10px'}}>{`Fenv = ${perivallon}`}</h1>
+          <h1 style={{wordSpacing:'10px'}}>{`Lp = 1km`}</h1>
+          <h1 style={{wordSpacing:'10px'}}>{`Ng = ${value}`}</h1>
+          <h1 style={{wordSpacing:'10px'}}>{`CRL = ${CRL.toFixed(3)}       (${message})`}</h1>  
+          </div>
           :null
         }
 
